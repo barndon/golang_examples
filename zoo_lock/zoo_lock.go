@@ -28,9 +28,9 @@ func wait_for_lock(write_lock string, conn *zk.Conn) {
 	timeout := make(chan bool, 1)
 	for {
 		// Get the list of existing lock files.  The lock names
-		// are all in the form "write-lock${SEQUENCE_NUM}" and
-		// we assume that sorting the list will put them in
-		// proper locking order.  Sequence numbers have lots of
+		// are all in the form "write-lock-${SEQUENCE_NUM}", for
+		// example "write-lock-0000000039", and we assume that
+		// sorting the list will put them in proper locking order.
 		children, _, err := conn.Children(lock_node)
 		must(err)
 		sort.Strings(children)
